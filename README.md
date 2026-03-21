@@ -21,7 +21,15 @@
 
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">绕 Z 轴旋转</font>$ \theta $<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">角（角度制）的模型矩阵为：</font>
 
-$ M_{model} = \begin{bmatrix}\cos\theta& -\sin\theta& 0 & 0 \\\sin\theta&\cos\theta& 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix} $
+$$
+M_{\text{model}} = 
+\begin{bmatrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
 
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">其中</font>$ \theta $<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">需先转换为弧度：</font>$ \theta _{rad}=\theta *\pi /180 $
 
@@ -29,7 +37,15 @@ $ M_{model} = \begin{bmatrix}\cos\theta& -\sin\theta& 0 & 0 \\\sin\theta&\cos\th
 
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">将相机从位置</font>`<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">eye_pos</font>`<font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">平移至原点的视图矩阵为：</font>
 
-$ M_{view} = \begin{bmatrix} 1 & 0 & 0 & -eye\_pos.x \\ 0 & 1 & 0 & -eye\_pos.y \\ 0 & 0 & 1 & -eye\_pos.z \\ 0 & 0 & 0 & 1 \end{bmatrix} $
+$$
+M_{\text{view}} = 
+\begin{bmatrix}
+1 & 0 & 0 & -\mathrm{eye\_pos}.x \\
+0 & 1 & 0 & -\mathrm{eye\_pos}.y \\
+0 & 0 & 1 & -\mathrm{eye\_pos}.z \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
 
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">（3）透视投影矩阵</font>
 
@@ -41,15 +57,35 @@ $ M_{view} = \begin{bmatrix} 1 & 0 & 0 & -eye\_pos.x \\ 0 & 1 & 0 & -eye\_pos.y 
 
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">最终投影矩阵为：</font>
 
-$ M_{proj} = M_{ortho} \times M_{persp\rightarrow ortho} $
+$$
+M_{\text{proj}} = M_{\text{ortho}} \times M_{\text{persp}\rightarrow\text{ortho}}
+$$
 
 其中：
 
-$ M_{persp\rightarrow ortho} = \begin{bmatrix} n & 0 & 0 & 0 \\ 0 & n & 0 & 0 \\ 0 & 0 & n + f & -nf \\ 0 & 0 & 1 & 0 \end{bmatrix} $
+$$
+M_{\text{persp}\rightarrow\text{ortho}} = 
+\begin{bmatrix}
+n & 0 & 0 & 0 \\
+0 & n & 0 & 0 \\
+0 & 0 & n+f & -nf \\
+0 & 0 & 1 & 0
+\end{bmatrix}
+$$
 
-$ M_{ortho} = \begin{bmatrix} \frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\ 0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\ 0 & 0 & \frac{2}{n-f} & -\frac{n+f}{n-f} \\ 0 & 0 & 0 & 1 \end{bmatrix} $
+$$
+M_{\text{ortho}} = 
+\begin{bmatrix}
+\frac{2}{r-l} & 0 & 0 & -\frac{r+l}{r-l} \\
+0 & \frac{2}{t-b} & 0 & -\frac{t+b}{t-b} \\
+0 & 0 & \frac{2}{n-f} & -\frac{n+f}{n-f} \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$$
 
-$ (n = -zNear,\ f = -zFar,\ t = \tan\left(\frac{fov}{2}\right) \cdot |n|,\ b = -t,\ r = aspect\_ratio \cdot t,\ l = -r) $
+$$
+n = -\mathrm{zNear},\ f = -\mathrm{zFar},\ t = \tan\left(\frac{\mathrm{fov}}{2}\right) \cdot |n|,\ b = -t,\ r = \mathrm{aspect\_ratio} \cdot t
+$$
 
 ### <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">三、实验环境与工具 </font><font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">🛠️</font>
 <font style="color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0);">编程语言：Python 3.8+</font>
